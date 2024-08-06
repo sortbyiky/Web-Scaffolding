@@ -1,0 +1,40 @@
+server:
+  port: 9090  # 服务器端口号，应用将监听的端口
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # 数据库驱动类名，使用 MySQL 驱动
+    username: root   # 连接数据库的用户名
+    password: 183193 # 连接数据库的密码
+    url: jdbc:mysql://localhost:3306/manager?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    # 数据库连接 URL，指定了连接到本地的 manager 数据库，并包含一些参数：
+    # useUnicode=true: 启用 Unicode 支持
+    # characterEncoding=utf-8: 使用 UTF-8 字符编码
+    # allowMultiQueries=true: 允许执行多条 SQL 语句
+    # useSSL=false: 禁用 SSL
+    # serverTimezone=GMT%2b8: 设置服务器时区为 GMT+8
+    # allowPublicKeyRetrieval=true: 允许公钥检索
+
+  servlet:
+    multipart:
+      max-file-size: 100MB      # 上传文件的最大大小
+      max-request-size: 100MB   # 请求的最大大小，包括表单数据和文件
+
+# 配置 MyBatis 实体和 XML 映射
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  # MyBatis 映射文件的位置
+  type-aliases-package: com.example.entity  # 实体类的包名，MyBatis 将使用别名简化配置
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 使用标准输出实现 MyBatis 日志
+    map-underscore-to-camel-case: true  # 启用下划线转驼峰命名法的映射
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql                    # 分页插件使用的数据库方言为 MySQL
+  reasonable: true                         # 启用合理化分页，如果 pageNum < 1，则会查询第一页
+  support-methods-arguments: true          # 支持通过方法参数来传递分页参数
+  params: count=countSql                   # 指定分页时使用的 count 查询参数
+
+
+ip: localhost
